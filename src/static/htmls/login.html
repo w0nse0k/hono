@@ -1,0 +1,52 @@
+<!-- 다음 예문을 테스트하는 HTML 입니다.
+ https://hono.dev/docs/api/request#parsebody
+ -->
+<!doctype html>
+<html>
+  <body>
+    <!-- form을 그대로 submit: 응답을 브라우저 받는다. -->
+    <form method="post" action="/login">
+      <p>
+        <input type="text" name="username" required />
+        <input type="password" name="password" required />
+      </p>
+      <p>
+        <button type="submit">
+          로그인: post form (Content-Type: application/x-www-form-urlencoded)
+        </button>
+      </p>
+    </form>
+    <!-- formData를 fetch post: 응답을 fetch 함수가 리턴한다. -->
+    <form id="form1">
+      <p>
+        <input type="text" name="username" required />
+        <input type="password" name="password" required />
+      </p>
+      <p>
+        <button type="submit">
+          Sign In: fetch post (Content-Type: application/json)
+        </button>
+      </p>
+    </form>
+    <pre id="result"></pre>
+    <script>
+      const form1Elem = document.getElementById("form1");
+      const resultElem = document.getElementById("result");
+      form1Elem.addEventListener("submit", async function (e) {
+        e.preventDefault(); // form을 submit 하는 것을 막는다.
+        const data = Object.fromEntries(new FormData(this));
+        const response = await fetch("/signin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (!response.ok) {
+          resultElem.textContent = `${response.status}: ${await response.text()}`;
+          return;
+        }
+        const result = await response.json();
+        resultElem.textContent = `${result.username}님 로그인 했습니다.`;
+      });
+    </script>
+  </body>
+</html>

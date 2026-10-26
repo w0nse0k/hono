@@ -1,0 +1,68 @@
+<!-- 다음 예문을 테스트하는 HTML 입니다.
+ https://hono.dev/docs/api/routing#basic
+ -->
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: lightgray;
+      }
+    </style>
+  </head>
+  <h3>Routing Test</h3>
+  <body>
+    <p><a href="/">/</a></p>
+    <form method="post" action="/">
+      <button type="submit">Post 보내기</button>
+    </form>
+    <p>
+      <button id="btnGet">fetch get</button>
+      <button id="btnPost">fetch post</button>
+      <button id="btnPut">fetch put</button>
+      <button id="btnDelete">fetch delete</button>
+    </p>
+    <div id="result"></div>
+    <script>
+      const btnGetElem = document.getElementById("btnGet");
+      const btnPostElem = document.getElementById("btnPost");
+      const btnPutElem = document.getElementById("btnPut");
+      const btnDeleteElem = document.getElementById("btnDelete");
+      const resultElem = document.getElementById("result");
+
+      // #btnGet event listener
+      btnGetElem.addEventListener("click", async () => {
+        const response = await fetch("/");
+        const text = await response.text();
+        resultElem.textContent = text;
+      });
+
+      // #btnPost event listener
+      btnPostElem.addEventListener("click", async () => {
+        const response = await fetch("/", {
+          method: "POST",
+        });
+        const text = await response.text();
+        resultElem.textContent = text;
+      });
+
+      // #btnPut event listener
+      btnPutElem.addEventListener("click", async () => {
+        const response = await fetch("/", {
+          method: "PUT",
+        });
+        const text = await response.text();
+        resultElem.textContent = text;
+      });
+
+      // #btnDelete event listener
+      btnDeleteElem.addEventListener("click", async () => {
+        const response = await fetch("/", {
+          method: "DELETE",
+        });
+        const text = await response.text();
+        resultElem.textContent = text;
+      });
+    </script>
+  </body>
+</html>

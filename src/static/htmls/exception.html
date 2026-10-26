@@ -1,0 +1,43 @@
+<!-- 다음 예문을 테스트하는 HTML 입니다.
+ https://hono.dev/docs/api/exception
+ -->
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: lightgray;
+      }
+    </style>
+  </head>
+  <h3>Routing Test</h3>
+  <body>
+    <p>
+      <button id="btnError">fetch /error</button>
+      <button id="btnHTTPException">fetch /http-exception</button>
+    </p>
+    <div id="result"></div>
+    <script>
+      const btnErrorElem = document.getElementById("btnError");
+      const btnHTTPExceptionElem = document.getElementById("btnHTTPException");
+      const resultElem = document.getElementById("result");
+
+      btnErrorElem.addEventListener("click", async () => {
+        const response = await fetch("/error");
+        resultElem.innerHTML = await toHTML(response);
+      });
+
+      btnHTTPException.addEventListener("click", async () => {
+        const response = await fetch("/http-exception");
+        resultElem.innerHTML = await toHTML(response);
+      });
+
+      async function toHTML(response) {
+        return `ok: ${response.ok}<br>
+          status: ${response.status}<br>
+          statusText: ${response.statusText}<br>
+          message: ${await response.text()}`;
+      }
+    </script>
+  </body>
+</html>
