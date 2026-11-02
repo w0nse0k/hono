@@ -12,7 +12,7 @@
       "program": "${file}",
       "preLaunchTask": "tsc: build - tsconfig.json",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "runtimeArgs": ["--import=tsx", "--env-file=.env"]
+      "runtimeArgs": ["--import=tsx", "--watch"]
     }
   ]
 }
