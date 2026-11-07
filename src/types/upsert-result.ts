@@ -1,5 +1,9 @@
-export default interface UpsertResult {
-  affectedRows: number;
-  insertId: number;
-  warningStatus: number;
-}
+import { z } from "zod";
+
+export const UpsertSchema = z.object({
+  affectedRows: z.number(),
+  insertId: z.number(),
+  warningStatus: z.number(),
+});
+
+export type UpsertResult = z.infer<typeof UpsertSchema>;

@@ -1,4 +1,4 @@
-import type Book from "../types/book.js";
+import { type Book } from "../types/book.js";
 import db from "./db-helper.js";
 
 /** 책 목록 */
@@ -11,7 +11,7 @@ export async function listBooks(size: number, page: number) {
 }
 
 /** 책 1권 */
-export async function getBook(id: number) {
+export async function getBook(id: number | string) {
   return await db.one<Book>("select * from book where id=?", id);
 }
 
@@ -30,11 +30,11 @@ export async function updateBook(book: Book) {
     "update book set title=?, price=? where id=?",
     book.title,
     book.price,
-    book.created_at,
+    book.id,
   );
 }
 
 /** 책 삭제 */
-export async function deleteBook(id: number) {
+export async function deleteBook(id: number | string) {
   return await db.upsert("delete from book where id=?", id);
 }
