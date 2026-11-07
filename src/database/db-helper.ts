@@ -2,6 +2,7 @@ import type { UpsertResult } from "mariadb";
 import pool from "./connection-pool.js";
 
 export default {
+  /** 목록 가져오기 */
   list: async <T>(sql: string, ...args: unknown[]) => {
     let conn;
     try {
@@ -12,6 +13,7 @@ export default {
     }
   },
 
+  /** 1개 가져오기 */
   one: async <T>(sql: string, ...args: unknown[]) => {
     let conn;
     try {
@@ -22,6 +24,7 @@ export default {
     }
   },
 
+  /** insert, update, delete 실행 */
   upsert: async (sql: string, ...args: unknown[]) => {
     let conn;
     try {
