@@ -4,15 +4,13 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+    
     {
-      "type": "node",
+      "type": "node-terminal",
+      "name": "Run Script: dev",
       "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${file}",
-      "preLaunchTask": "tsc: build - tsconfig.json",
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "runtimeArgs": ["--import=tsx", "--watch"]
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}"
     }
   ]
 }
