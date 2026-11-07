@@ -5,6 +5,6 @@ import bookRoutes from "./routes/book-routes.js";
 
 const app = new Hono();
 
-app.route("book", bookRoutes);
+app.route("/books", bookRoutes);
 
 serve(app);
