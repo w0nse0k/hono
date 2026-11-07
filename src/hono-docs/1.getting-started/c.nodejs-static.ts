@@ -9,6 +9,6 @@ import { serveStatic } from "@hono/node-server/serve-static";
 const app = new Hono();
 
 // Serve static files
-app.use("/static/*", serveStatic({ root: "./src" }));
+app.use("/static/*", serveStatic({ root: "./src/hono-docs" }));
 
 serve(app);
