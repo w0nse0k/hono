@@ -1,31 +1,5 @@
-import mariadb, {
-  type Pool,
-  type PoolConfig,
-  type UpsertResult,
-} from "mariadb";
-
-const config: PoolConfig = {
-  host: process.env.DB_HOST!,
-  user: process.env.DB_USER!,
-  password: process.env.DB_PASSWORD!,
-  database: process.env.DB_DATABASE!,
-  connectionLimit: +process.env.DB_CONNECTION_LIMIT!,
-};
-
-const pool: Pool = mariadb.createPool(config);
-
-await checkPool();
-console.log("pool created.");
-
-async function checkPool() {
-  let conn;
-  try {
-    conn = await pool.getConnection();
-    await conn.query("select 1");
-  } finally {
-    if (conn) conn.release();
-  }
-}
+import type { UpsertResult } from "mariadb";
+import pool from "./connection-pool.js";
 
 export default {
   list: async <T>(sql: string, ...args: unknown[]) => {
@@ -53,6 +27,7 @@ export default {
     try {
       conn = await pool.getConnection();
       const result = await conn.execute<UpsertResult>(sql, args);
+      // insertId를 bigint에서 number로 바꾼다.
       return { ...result, insertId: Number(result.insertId) };
     } finally {
       if (conn) conn.release();

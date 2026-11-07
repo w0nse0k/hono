@@ -1,6 +1,6 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
-import "./database/db-helper.js";
+import "./database/connection-pool.js";
 import bookRoutes from "./routes/book-routes.js";
 
 const app = new Hono();
