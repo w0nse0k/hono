@@ -8,7 +8,7 @@ import { Scalar } from "@scalar/hono-api-reference";
 
 const app = new Hono();
 
-app.route("book", bookRoutes);
+app.route("/books", bookRoutes);
 
 serve(app);
 
