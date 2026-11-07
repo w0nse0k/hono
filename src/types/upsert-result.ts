@@ -1,4 +1,4 @@
-export default interface UpsertResult {
+export interface UpsertResult {
   affectedRows: number;
   insertId: number;
   warningStatus: number;
