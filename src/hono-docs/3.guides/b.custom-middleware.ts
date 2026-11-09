@@ -41,7 +41,7 @@ const authMiddleware: MiddlewareHandler = async (c, next) => {
 app.use(authMiddleware);
 
 app.get("/", (c) => {
-  const user = c.get("user"); // c.var.user
+  const user = c.get("user");
   return c.json({ user });
 });
 

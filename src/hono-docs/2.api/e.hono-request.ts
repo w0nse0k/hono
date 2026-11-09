@@ -49,21 +49,6 @@ app.get("/", (c) => {
   return c.text(`Your user agent is ${userAgent}`);
 });
 
-// Serve static files
-app.use("/static/*", serveStatic({ root: "./src" }));
-
-// parseBody(): multipart/form-data 또는 application/x-www-form-urlencoded 유형의 요청 본문을 파싱합니다.
-app.post("/login", async (c) => {
-  const { username, password } = await c.req.parseBody();
-  // 로그인 처리하고 response를 만든다. (Server Side Rendering)
-  return c.html(`
-    <html>
-    <body>
-      <p>${username}님 로그인했습니다.</p>
-    </body>
-    </html>`);
-});
-
 // json(): application/json 유형의 요청 본문을 파싱합니다.
 app.post("/signin", async (c) => {
   const { username, password } = await c.req.json();

@@ -20,17 +20,17 @@ app.get("/posts", (c) => {
 });
 
 // Execution order: 미들웨어의 실행 순서는 등록된 순서에 따라 결정됩니다. 가장 먼저 등록된 미들웨어의 next 이전의 프로세스가 먼저 실행되고, next 이후의 프로세스는 마지막에 실행됩니다. 아래를 참조하십시오.
-app.use(async (_, next) => {
+app.use(async (c, next) => {
   console.log("middleware 1 start");
   await next();
   console.log("middleware 1 end");
 });
-app.use(async (_, next) => {
+app.use(async (c, next) => {
   console.log("middleware 2 start");
   await next();
   console.log("middleware 2 end");
 });
-app.use(async (_, next) => {
+app.use(async (c, next) => {
   console.log("middleware 3 start");
   await next();
   console.log("middleware 3 end");

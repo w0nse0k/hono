@@ -19,7 +19,11 @@ app.get("/error", () => {
 });
 
 // HTTPException: status와 messsage 설정
-app.get("/http-exception", () => {
+app.get("/500", () => {
+  throw new HTTPException(500, { message: "서버 에러 발생" });
+});
+
+app.get("/401", () => {
   throw new HTTPException(401, { message: "인증에 실패했습니다." });
 });
 
