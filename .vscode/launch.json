@@ -18,7 +18,7 @@
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
-      "runtimeArgs": ["--import=tsx", "--watch"]
+      "runtimeArgs": ["--import=tsx", "--watch", "--env-file=.env"]
     }
   ]
 }
