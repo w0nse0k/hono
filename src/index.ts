@@ -7,4 +7,8 @@ const app = new Hono();
 
 app.route("/books", bookRoutes);
 
+app.get("/", (c) => {
+  return c.text("Hono Rest API Service");
+});
+
 serve(app);
