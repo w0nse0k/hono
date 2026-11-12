@@ -1,5 +1,5 @@
 export interface UpsertResult {
   affectedRows: number;
-  insertId: number;
+  insertId: bigint;
   warningStatus: number;
 }
