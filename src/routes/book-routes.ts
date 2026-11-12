@@ -11,12 +11,14 @@ import { HTTPException } from "hono/http-exception";
 
 const bookRoutes = new Hono();
 
+// 책 목록
 bookRoutes.get("/", async (c) => {
   const { size = 10, page = 1 } = c.req.query();
   const list = await listBooks(Number(size), Number(page));
   return c.json(list);
 });
 
+// 책 1 건
 bookRoutes.get("/:id", async (c) => {
   const { id } = c.req.param();
   const book = await getBook(Number(id));
@@ -25,12 +27,14 @@ bookRoutes.get("/:id", async (c) => {
   return c.json(book);
 });
 
+// 책 추가
 bookRoutes.post("/", async (c) => {
   const book: Book = await c.req.json();
   const result = await addBook(book);
   return c.json(result);
 });
 
+// 책 부분 수정
 bookRoutes.patch("/", async (c) => {
   const book: Book = await c.req.json();
   const result = await updateBook(book);
@@ -39,6 +43,7 @@ bookRoutes.patch("/", async (c) => {
   return c.json(result);
 });
 
+// 책 삭제
 bookRoutes.delete("/:id", async (c) => {
   const id = await c.req.param("id");
   const result = await deleteBook(Number(id));
