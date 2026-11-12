@@ -29,9 +29,7 @@ export default {
     let conn;
     try {
       conn = await pool.getConnection();
-      const result = await conn.execute<UpsertResult>(sql, args);
-      // insertId를 bigint에서 number로 바꾼다.
-      return { ...result, insertId: Number(result.insertId) };
+      return await conn.execute<UpsertResult>(sql, args);
     } finally {
       if (conn) conn.release();
     }
