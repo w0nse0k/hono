@@ -1,8 +1,7 @@
 import mariadb from "mariadb";
 import type { Pool, PoolConfig } from "mariadb";
 
-/* launch.json의 configuration에 다음을 추가하면 process.env로 .env 파일을 읽을 수 있습니다.
- * "envFile": "${workspaceFolder}/.env"
+/* launch.json의 configuration에 "envFile": "${workspaceFolder}/.env"을 추가해서 .env 파일을 로드합니다.
  * .env 파일은 .gitignore에 등록해서 GitHub에 올리지 않아야 합니다.
  * connectionLimit는 개발 중에는 2개만 합니다.
  */
