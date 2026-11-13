@@ -3,7 +3,7 @@ import pool from "./connection-pool.js";
 
 export default {
   /** 목록 가져오기 */
-  list: async <T>(sql: string, ...args: unknown[]) => {
+  list: async <T>(sql: string, args: unknown[]) => {
     let conn;
     try {
       conn = await pool.getConnection();
@@ -25,11 +25,12 @@ export default {
   },
 
   /** insert, update, delete 실행 */
-  upsert: async (sql: string, ...args: unknown[]) => {
+  upsert: async (sql: string, args: unknown[]) => {
     let conn;
     try {
       conn = await pool.getConnection();
-      return await conn.execute<UpsertResult>(sql, args);
+      const result = await conn.execute<UpsertResult>(sql, args);
+      return { ...result, insertId: Number(result.insertId) };
     } finally {
       if (conn) conn.release();
     }
