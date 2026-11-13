@@ -35,9 +35,10 @@ bookRoutes.post("/", async (c) => {
 });
 
 // 책 수정
-bookRoutes.put("/", async (c) => {
+bookRoutes.patch("/:id", async (c) => {
+  const id = await c.req.param("id");
   const requested: Book = await c.req.json();
-  const current = await getBook(requested.id);
+  const current = await getBook(Number(id));
   // 책이 없으면 잘못된 요청. 400 Bad Request
   if (!current) throw new HTTPException(400);
   // 변경된 부분을 반영
