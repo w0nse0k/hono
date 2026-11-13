@@ -34,12 +34,15 @@ bookRoutes.post("/", async (c) => {
   return c.json(result);
 });
 
-// 책 부분 수정
-bookRoutes.patch("/", async (c) => {
-  const book: Book = await c.req.json();
-  const result = await updateBook(book);
-  // 업데이트가 안될 경우 요청의 id가 잘못됨. 400 Bad Request
-  if (result.affectedRows === 0) throw new HTTPException(400);
+// 책 수정
+bookRoutes.put("/", async (c) => {
+  const requested: Book = await c.req.json();
+  const current = await getBook(requested.id);
+  // 책이 없으면 잘못된 요청. 400 Bad Request
+  if (!current) throw new HTTPException(400);
+  // 변경된 부분을 반영
+  Object.assign(current, requested); // current <- requested
+  const result = await updateBook(current);
   return c.json(result);
 });
 
