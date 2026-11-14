@@ -23,12 +23,15 @@ bookRoutes.get(
     tags: ["Books"],
     summary: "책 목록",
     request: {
-      query: z.object({ page: z.coerce.number(), size: z.coerce.number() }),
+      query: z.object({
+        size: z.coerce.number().default(10),
+        page: z.coerce.number().default(1),
+      }),
     },
     responses: { 200: BookSchema.array() },
   }),
   async (c) => {
-    const { size = 10, page = 1 } = c.req.valid("query");
+    const { size, page } = c.req.valid("query");
     const list = await listBooks(size, page);
     return c.var.res(list);
   },
